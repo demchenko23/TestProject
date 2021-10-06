@@ -29,9 +29,8 @@ namespace CITestProject.Core
         [AfterFeature]
         public static void FeatureTearDown(FeatureContext featureContext)
         {
-            var driver = featureContext.Get<IWebDriver>();
-            driver.Close();
-            driver.Dispose();
+            featureContext.Get<IWebDriver>().Close();
+            featureContext.Get<IWebDriver>().Dispose();
         }
     }
 }

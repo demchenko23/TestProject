@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TechTalk.SpecFlow;
 
 namespace CITestProject.PageObjects
 {
     public class GooglePage 
     {
-        private IWebDriver driver;
-        public GooglePage(IWebDriver driver)
+        private IWebDriver driver { get; set; }
+        public GooglePage(FeatureContext featureContext)
         {
-            this.driver = driver;
+            driver = featureContext.Get<IWebDriver>();
         }
         public string URL = "https://www.google.com/";
         public By InputTextBoxBy => By.XPath("//input[@class='gLFyf gsfi']");

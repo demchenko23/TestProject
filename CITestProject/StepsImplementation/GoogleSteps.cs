@@ -1,9 +1,6 @@
 ﻿using CITestProject.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TechTalk.SpecFlow;
 
 namespace CITestProject.StepsImplementation
@@ -11,12 +8,12 @@ namespace CITestProject.StepsImplementation
     [Binding]
     public class GoogleSteps
     {
-        private IWebDriver driver;
-        private GooglePage page;
+        private IWebDriver driver { get; set; }
+        public GooglePage page { get; set; }
         public GoogleSteps(FeatureContext featureContext)
         {
             driver = featureContext.Get<IWebDriver>();
-            page = new GooglePage(driver);
+            page = new GooglePage(featureContext);
         }
 
         [When(@"I navigate to Google page")]
@@ -25,10 +22,10 @@ namespace CITestProject.StepsImplementation
             driver.Url = page.URL;
         }
 
-        [Then(@"Google page is opened")]
-        public void ThenGooglePageIsOpened()
+        [Then(@"Google page is displayed")]
+        public void ThenGooglePageIsDisplayed()
         {
-            Assert.IsTrue(page.InputTextBox.Displayed);
+            Assert.IsTrue(page.InputTextBox.Displayed, "Google page is NOT opened");
         }
 
         [When(@"I fill in query text '(.*)'")]
@@ -43,10 +40,10 @@ namespace CITestProject.StepsImplementation
             page.InputTextBox.SendKeys(Keys.Enter);
         }
 
-        [Then(@"Result page is opened")]
-        public void ThenResultPageIsOpened()
+        [Then(@"Result page is displayed")]
+        public void ThenResultPageIsDisplayed()
         {
-            Assert.IsTrue(page.ResultPage.Displayed);
+            Assert.IsTrue(page.ResultPage.Displayed, "Result page is NOT opened");
         }
     }
 }
