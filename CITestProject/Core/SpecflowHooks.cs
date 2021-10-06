@@ -23,6 +23,7 @@ namespace CITestProject.Core
         public static void OneTime(FeatureContext featureContext)
         {
             ChromeDriver driver = new ChromeDriver();
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
             featureContext.Set<IWebDriver>(driver);
         }
 
